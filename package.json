@@ -1,0 +1,25 @@
+{
+  "name": "typewright",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "A self-study knowledge base for TypeScript and Playwright: lessons, quizzes and hands-on tasks.",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "typecheck": "tsc --noEmit",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "shiki": "^4.6.0"
+  },
+  "devDependencies": {
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@vitejs/plugin-react": "^6.3.0",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.8"
+  }
+}
