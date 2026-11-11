@@ -1,19 +1,23 @@
-import { getTrack, lessonKey, modulesOf } from '../content';
+import { lessonKey, useContent } from '../content';
+import { Inline } from '../lib/markdown';
 import { lessonHref } from '../lib/router';
 import { useProgress } from '../lib/progress';
+import { useT } from '../lib/i18n';
 import { Icon } from './Icon';
 
 export function Sidebar({ track, slug, onNavigate }: { track: string; slug?: string; onNavigate?: () => void }) {
   const p = useProgress();
-  const t = getTrack(track);
-  if (!t) return null;
+  const t = useT();
+  const { getTrack, modulesOf } = useContent();
+  const tr = getTrack(track);
+  if (!tr) return null;
   return (
-    <nav className="sidebar" aria-label={`${t.name} lessons`}>
-      <a href={`#/${t.id}`} className={`side-overview ${!slug ? 'active' : ''}`} onClick={onNavigate}>
-        <Icon name={t.id === 'typescript' ? 'code' : 'play'} size={16} />
-        {t.name} overview
+    <nav className="sidebar" aria-label={tr.name}>
+      <a href={`#/${tr.id}`} className={`side-overview ${!slug ? 'active' : ''}`} onClick={onNavigate}>
+        <Icon name={tr.id === 'typescript' ? 'code' : 'play'} size={16} />
+        {t.track.overview(tr.name)}
       </a>
-      {modulesOf(t.id).map((m) => (
+      {modulesOf(tr.id).map((m) => (
         <div key={m.name} className="side-group">
           <div className="side-group-title">{m.name}</div>
           {m.lessons.map((l) => {
@@ -23,7 +27,7 @@ export function Sidebar({ track, slug, onNavigate }: { track: string; slug?: str
                 className={`side-item ${l.slug === slug ? 'active' : ''} ${done ? 'done' : ''}`}
                 aria-current={l.slug === slug ? 'page' : undefined}>
                 <span className="side-dot">{done ? <Icon name="check" size={11} /> : null}</span>
-                <span className="side-label">{l.title}</span>
+                <span className="side-label"><Inline text={l.title} /></span>
               </a>
             );
           })}

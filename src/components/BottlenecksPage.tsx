@@ -1,22 +1,25 @@
 import { useState } from 'react';
-import { bottlenecks } from '../content';
-import { Blocks, Inline } from '../lib/markdown';
+import { useContent } from '../content';
+import { Blocks, Inline, plain } from '../lib/markdown';
 import { lessonHref } from '../lib/router';
+import { useT } from '../lib/i18n';
 import { Icon } from './Icon';
 
 export function BottlenecksPage() {
   const [filter, setFilter] = useState<'all' | 'typescript' | 'playwright'>('all');
+  const t = useT();
+  const { bottlenecks } = useContent();
   const list = bottlenecks.filter((b) => filter === 'all' || b.lesson.track === filter);
 
   return (
     <div className="lesson wide">
-      <div className="eyebrow"><span className="dot" />Wiki</div>
-      <h1>Bottlenecks</h1>
-      <p className="lead">The hard parts, in one place. Each entry is pulled straight from a lesson — open it to see the full explanation, examples and a task to practise it.</p>
+      <div className="eyebrow"><span className="dot" />{t.bottlenecks.eyebrow}</div>
+      <h1>{t.bottlenecks.title}</h1>
+      <p className="lead">{t.bottlenecks.lead}</p>
       <div className="segmented" role="tablist">
         {(['all', 'typescript', 'playwright'] as const).map((f) => (
           <button key={f} type="button" role="tab" aria-selected={filter === f} className={filter === f ? 'on' : ''} onClick={() => setFilter(f)}>
-            {f === 'all' ? `All (${bottlenecks.length})` : f === 'typescript' ? 'TypeScript' : 'Playwright'}
+            {f === 'all' ? t.bottlenecks.all(bottlenecks.length) : f === 'typescript' ? 'TypeScript' : 'Playwright'}
           </button>
         ))}
       </div>
@@ -29,7 +32,7 @@ export function BottlenecksPage() {
             </header>
             <div className="prose compact"><Blocks blocks={b.blocks} /></div>
             <a className="bn-link" href={lessonHref(b.lesson.track, b.lesson.slug, b.section?.id)}>
-              {b.lesson.track === 'typescript' ? 'TypeScript' : 'Playwright'} · {b.lesson.title}{b.section ? ` › ${b.section.text.replace(/`/g, '')}` : ''}
+              {b.lesson.track === 'typescript' ? 'TypeScript' : 'Playwright'} · {plain(b.lesson.title)}{b.section ? ` › ${plain(b.section.text)}` : ''}
               <Icon name="arrowRight" size={14} />
             </a>
           </article>

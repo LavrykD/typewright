@@ -122,10 +122,3 @@ export function parseLesson(track: TrackId, file: string, raw: string): Lesson {
   }
   return lesson;
 }
-
-function load(track: TrackId, files: Record<string, string>): Lesson[] {
-  return Object.keys(files).sort().map((f) => parseLesson(track, f, files[f]!));
-}
-
-export const tsLessons = load('typescript', import.meta.glob('./typescript/*.md', { query: '?raw', import: 'default', eager: true }));
-export const pwLessons = load('playwright', import.meta.glob('./playwright/*.md', { query: '?raw', import: 'default', eager: true }));

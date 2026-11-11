@@ -149,7 +149,7 @@ test('x', async ({ page }) => {
 > Starting the listener first and awaiting it after the action avoids the race.
 
 === task Find the floating promises
-1. Install the lint rule's toolchain in your lab: `npm install -D eslint typescript-eslint`.
+1. Install the lint rule's toolchain in your lab: `npm install -D typescript@6 eslint typescript-eslint`. (typescript-eslint doesn't support TypeScript 7 yet — see the [bottleneck in lesson 1](#/typescript/mental-model#the-checker-vs-the-emitter). Without `typescript@6`, npm stops with an `ERESOLVE` peer-dependency error.)
 2. Create `eslint.config.js` with the starter config.
 3. Paste the second starter snippet into `src/floating.ts` and run `npx eslint src/floating.ts`.
 4. Fix every reported line.
@@ -227,3 +227,7 @@ Note `return await fn()` — without `await`, a rejection would escape the `try`
 - [useUnknownInCatchVariables — TSConfig reference](https://www.typescriptlang.org/tsconfig/#useUnknownInCatchVariables)
 - [no-floating-promises — typescript-eslint](https://typescript-eslint.io/rules/no-floating-promises/)
 - [Best practices: lint your tests — Playwright](https://playwright.dev/docs/best-practices#lint-your-tests)
+- [Promise — TypeScript Deep Dive (Basarat)](https://basarat.gitbook.io/typescript/future-javascript/promise)
+- [Async Await — TypeScript Deep Dive](https://basarat.gitbook.io/typescript/future-javascript/async-await)
+- [Exception Handling — TypeScript Deep Dive](https://basarat.gitbook.io/typescript/type-system/exceptions)
+- [Others: Errors and Exception Handling — The Concise TypeScript Book (gibbok)](https://gibbok.github.io/typescript-book/book/others/)

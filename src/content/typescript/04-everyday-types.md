@@ -236,3 +236,8 @@ Hover each one and compare:
 - [Literal types & `as const` — TypeScript Handbook](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#literal-types)
 - [The `unknown` type — TypeScript 3.0 release notes](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-0.html#new-unknown-top-type)
 - [Nullish coalescing — MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Nullish_coalescing)
+- [Type Annotations — The Concise TypeScript Book (gibbok)](https://gibbok.github.io/typescript-book/book/type-annotations/)
+- [Literal Inference — The Concise TypeScript Book](https://gibbok.github.io/typescript-book/book/literal-inference/)
+- [Unknown type — The Concise TypeScript Book](https://gibbok.github.io/typescript-book/book/unknown-type/)
+- [Literal Types — TypeScript Deep Dive (Basarat)](https://basarat.gitbook.io/typescript/type-system/literal-types)
+- [Type Inference — TypeScript Deep Dive](https://basarat.gitbook.io/typescript/type-system/type-inference)

@@ -152,3 +152,7 @@ Fixed with `import type { User } from './types.ts';`. If you ran the broken vers
 - [verbatimModuleSyntax — TSConfig reference](https://www.typescriptlang.org/tsconfig/#verbatimModuleSyntax)
 - [Announcing TypeScript 6.0 — TypeScript blog](https://devblogs.microsoft.com/typescript/announcing-typescript-6-0/)
 - [Modules: TypeScript — Node.js documentation](https://nodejs.org/api/typescript.html)
+- [Modules — TypeScript Deep Dive (Basarat)](https://basarat.gitbook.io/typescript/project/modules)
+- [File Module Details — TypeScript Deep Dive](https://basarat.gitbook.io/typescript/project/modules/external-modules)
+- [Avoid Export Default — TypeScript Deep Dive](https://basarat.gitbook.io/typescript/main-1/defaultisbad)
+- [Barrel — TypeScript Deep Dive](https://basarat.gitbook.io/typescript/main-1/barrel)

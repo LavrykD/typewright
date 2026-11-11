@@ -70,6 +70,9 @@ test('shows my orders', async ({ page }) => {
 > [!PITFALL] Saving state before login has finished
 > Clicking "Sign in" and immediately calling `storageState()` often saves an *empty* session: the auth cookie arrives a moment later, sometimes after several redirects. Always wait for a post-login signal — `waitForURL` to the landing page and/or a logged-in-only element — before saving.
 
+> [!TIP] Windows and PowerShell
+> The commands above are for bash (macOS, Linux, Git Bash). In PowerShell: `New-Item -ItemType Directory -Force -Path playwright\.auth` and `Add-Content -Path .gitignore -Value "playwright/.auth"`.
+
 ## Opting out for some tests
 
 Tests for the login page itself must start logged out:

@@ -220,3 +220,5 @@ emit<K extends keyof E>(event: K, payload: E[K]) {
 - [Indexed Access Types — TypeScript Handbook](https://www.typescriptlang.org/docs/handbook/2/indexed-access-types.html)
 - [const type parameters — TypeScript 5.0 release notes](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-5-0.html#const-type-parameters)
 - [NoInfer utility type — TypeScript 5.4 release notes](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-5-4.html#the-noinfer-utility-type)
+- [Generics — The Concise TypeScript Book (gibbok)](https://gibbok.github.io/typescript-book/book/generics/)
+- [Generics — TypeScript Deep Dive (Basarat)](https://basarat.gitbook.io/typescript/type-system/generics)

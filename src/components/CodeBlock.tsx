@@ -1,3 +1,4 @@
+import { useT } from '../lib/i18n';
 import { useEffect, useState } from 'react';
 import { highlight } from '../lib/highlight';
 
@@ -8,14 +9,10 @@ interface Props {
   variant?: 'bad' | 'good';
 }
 
-const LANG_LABEL: Record<string, string> = {
-  ts: 'TypeScript', typescript: 'TypeScript', tsx: 'TSX', js: 'JavaScript', javascript: 'JavaScript',
-  json: 'JSON', bash: 'Terminal', sh: 'Terminal', yaml: 'YAML', yml: 'YAML', html: 'HTML', text: 'Output',
-};
-
 export function CodeBlock({ code, lang, title, variant }: Props) {
   const [html, setHtml] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
+  const t = useT().code;
 
   useEffect(() => {
     let live = true;
@@ -34,10 +31,10 @@ export function CodeBlock({ code, lang, title, variant }: Props) {
   return (
     <figure className={`code ${variant ? 'code-' + variant : ''}`}>
       <figcaption className="code-head">
-        {variant && <span className={`code-tag ${variant}`}>{variant === 'bad' ? 'Avoid' : 'Prefer'}</span>}
-        <span className="code-title">{title ?? LANG_LABEL[lang] ?? lang}</span>
-        <button type="button" className="code-copy" onClick={copy} aria-label="Copy code">
-          {copied ? 'Copied' : 'Copy'}
+        {variant && <span className={`code-tag ${variant}`}>{variant === 'bad' ? t.avoid : t.prefer}</span>}
+        <span className="code-title">{title ?? t.langs[lang] ?? lang}</span>
+        <button type="button" className="code-copy" onClick={copy} aria-label={t.copyLabel}>
+          {copied ? t.copied : t.copy}
         </button>
       </figcaption>
       {html ? (

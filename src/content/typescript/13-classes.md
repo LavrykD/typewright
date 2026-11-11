@@ -66,6 +66,16 @@ class LoginPage {
 > [!PITFALL] Parameter properties aren't "erasable"
 > The shorthand makes TypeScript *generate* the `this.page = page` assignment, so it isn't pure type syntax. Node's built-in type stripping rejects it (`ERR_UNSUPPORTED_TYPESCRIPT_SYNTAX`), and the `erasableSyntaxOnly` option flags it. Playwright's own test runner transforms it fine, so it works in tests today — but writing explicit fields keeps your code portable to any runtime.
 
+> [!PITFALL] Field initializers that use a parameter property
+> This page-object style is everywhere in older tutorials:
+> ```ts
+> class LoginPage {
+>   readonly email = this.page.getByLabel('Email');   // ✗
+>   constructor(private readonly page: Page) {}
+> }
+> ```
+> With modern targets, TypeScript uses standard JavaScript class fields (`useDefineForClassFields`), which run **before** the constructor body assigns `this.page`. The compiler reports *TS2729: Property 'page' is used before its initialization*, and since Playwright 1.65 its test runner follows the same rule, so at runtime `this.page` is `undefined`. Declare the fields and assign them inside the constructor instead — exactly the explicit style shown at the top of this lesson.
+
 ## `implements` and `abstract`
 
 `implements` checks that a class matches an interface — it doesn't change the class or add anything:
@@ -115,7 +125,7 @@ const c = new Counter();
 [1, 2].forEach(() => c.inc());  // ✓
 ```
 
-Define the method as an arrow-function field (`inc = () => { this.count++; }`) if it's meant to be passed around.
+Define the method as an arrow-function field (`inc = () => { this.count++; }`) if it's meant to be passed around. The full story — including when arrows are the wrong choice — is in [Arrow functions & `this`](#/typescript/arrow-functions-and-this). For accessors, statics, mixins and decorators, continue with [Advanced classes](#/typescript/advanced-classes).
 
 === quiz
 ??? What does `private` on a class field do at runtime?
@@ -186,3 +196,6 @@ export class TodoPage {
 - [Private class features — MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/Private_properties)
 - [erasableSyntaxOnly — TSConfig reference](https://www.typescriptlang.org/tsconfig/#erasableSyntaxOnly)
 - [Page object models — Playwright](https://playwright.dev/docs/pom)
+- [Class — The Concise TypeScript Book (gibbok)](https://gibbok.github.io/typescript-book/book/class/)
+- [Classes — TypeScript Deep Dive (Basarat)](https://basarat.gitbook.io/typescript/future-javascript/classes)
+- [Classes are Useful — TypeScript Deep Dive](https://basarat.gitbook.io/typescript/main-1/classesareuseful)

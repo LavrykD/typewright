@@ -15,6 +15,7 @@
 import { Fragment, type ReactNode } from 'react';
 import { CodeBlock } from '../components/CodeBlock';
 import { Callout, type CalloutKind } from '../components/Callout';
+import { goToSection } from './router';
 
 export type Block =
   | { type: 'heading'; level: 2 | 3; text: string; id: string }
@@ -29,7 +30,7 @@ export function slugify(text: string): string {
   return text
     .toLowerCase()
     .replace(/`/g, '')
-    .replace(/[^a-z0-9\s-]/g, '')
+    .replace(/[^\p{L}\p{N}\s-]/gu, '')
     .trim()
     .replace(/\s+/g, '-')
     .slice(0, 60);
@@ -92,8 +93,10 @@ export function parse(src: string): Block[] {
     // Headings
     const h = /^(#{2,3})\s+(.*)$/.exec(line);
     if (h) {
-      const text = h[2]!.trim();
-      blocks.push({ type: 'heading', level: h[1]!.length as 2 | 3, text, id: slugify(text) });
+      // Optional explicit id: "## Заголовок {#stable-id}" keeps anchors identical across languages.
+      const m = /^(.*?)\s*\{#([\w-]+)\}$/.exec(h[2]!.trim());
+      const text = (m ? m[1]! : h[2]!).trim();
+      blocks.push({ type: 'heading', level: h[1]!.length as 2 | 3, text, id: m ? m[2]! : slugify(text) });
       i++;
       continue;
     }
@@ -203,7 +206,7 @@ function renderBlock(b: Block): ReactNode {
       const Tag = b.level === 2 ? 'h2' : 'h3';
       return (
         <Tag id={b.id} className="anchored">
-          <a href={`#${b.id}`} className="anchor" aria-hidden onClick={(e) => { e.preventDefault(); document.getElementById(b.id)?.scrollIntoView({ behavior: 'smooth' }); }}>#</a>
+          <a href={`#${b.id}`} className="anchor" aria-hidden onClick={(e) => { e.preventDefault(); goToSection(b.id); }}>#</a>
           <Inline text={b.text} />
         </Tag>
       );
@@ -247,6 +250,9 @@ function renderBlock(b: Block): ReactNode {
 export function Markdown({ src }: { src: string }) {
   return <Blocks blocks={parse(src)} />;
 }
+
+/** Strip inline-code backticks for plain-text contexts (tab title, buttons, search). */
+export const plain = (text: string) => text.replace(/`|\*\*/g, '');
 
 /** Plain text of a parsed block, for search indexing. */
 export function blockText(b: Block): string {

@@ -1,8 +1,12 @@
+import { Inline } from '../lib/markdown';
+import { useT } from '../lib/i18n';
+import { goToSection } from '../lib/router';
 import { useEffect, useState } from 'react';
 
 export interface TocItem { id: string; text: string; level: 2 | 3 }
 
 export function Toc({ items }: { items: TocItem[] }) {
+  const title = useT().lesson.onThisPage;
   const [active, setActive] = useState<string | undefined>(items[0]?.id);
 
   useEffect(() => {
@@ -20,11 +24,11 @@ export function Toc({ items }: { items: TocItem[] }) {
   if (items.length === 0) return null;
   return (
     <nav className="toc" aria-label="On this page">
-      <div className="toc-title">On this page</div>
+      <div className="toc-title">{title}</div>
       {items.map((i) => (
         <a key={i.id} href={`#${i.id}`} className={`toc-item l${i.level} ${active === i.id ? 'active' : ''}`}
-          onClick={(e) => { e.preventDefault(); document.getElementById(i.id)?.scrollIntoView({ behavior: 'smooth' }); }}>
-          {i.text.replace(/`/g, '')}
+          onClick={(e) => { e.preventDefault(); goToSection(i.id); }}>
+          <Inline text={i.text} />
         </a>
       ))}
     </nav>

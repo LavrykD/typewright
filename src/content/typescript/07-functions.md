@@ -215,3 +215,6 @@ function toArray(x: string | string[]): string[] {
 - [Function overloads — TypeScript Handbook](https://www.typescriptlang.org/docs/handbook/2/functions.html#function-overloads)
 - [no-floating-promises — typescript-eslint](https://typescript-eslint.io/rules/no-floating-promises/)
 - [no-misused-promises — typescript-eslint](https://typescript-eslint.io/rules/no-misused-promises/)
+- [Overloads — The Concise TypeScript Book (gibbok)](https://gibbok.github.io/typescript-book/book/overloads/)
+- [Functions — TypeScript Deep Dive (Basarat)](https://basarat.gitbook.io/typescript/type-system/functions)
+- [Callable — TypeScript Deep Dive](https://basarat.gitbook.io/typescript/type-system/callable)

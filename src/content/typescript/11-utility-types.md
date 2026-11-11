@@ -151,3 +151,5 @@ Now add a `'refunded'` status to `Order` — `OpenStatus` picks it up automatica
 - [Utility Types — TypeScript Handbook](https://www.typescriptlang.org/docs/handbook/utility-types.html)
 - [Indexed Access Types — TypeScript Handbook](https://www.typescriptlang.org/docs/handbook/2/indexed-access-types.html)
 - [Distributive conditional types — TypeScript Handbook](https://www.typescriptlang.org/docs/handbook/2/conditional-types.html#distributive-conditional-types)
+- [Predefined Conditional Types — The Concise TypeScript Book (gibbok)](https://gibbok.github.io/typescript-book/book/predefined-conditional-types/)
+- [Type Manipulation — The Concise TypeScript Book](https://gibbok.github.io/typescript-book/book/type-manipulation/)

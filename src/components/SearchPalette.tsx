@@ -1,19 +1,20 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { allLessons, getTrack } from '../content';
-import { blockText, parse } from '../lib/markdown';
+import { useContent, type Content } from '../content';
+import { useT } from '../lib/i18n';
+import { blockText, parse, plain } from '../lib/markdown';
 import { lessonHref } from '../lib/router';
 import { Icon } from './Icon';
 
 interface Entry { track: string; slug: string; lessonTitle: string; heading?: string; anchor?: string; text: string }
 
-function buildIndex(): Entry[] {
+function buildIndex({ allLessons }: Content): Entry[] {
   const out: Entry[] = [];
   for (const l of allLessons) {
-    out.push({ track: l.track, slug: l.slug, lessonTitle: l.title, text: `${l.title} ${l.description} ${l.module}`.toLowerCase() });
+    out.push({ track: l.track, slug: l.slug, lessonTitle: plain(l.title), text: `${l.title} ${l.description} ${l.module}`.toLowerCase() });
     let cur: Entry | null = null;
     for (const b of parse(l.body)) {
       if (b.type === 'heading') {
-        cur = { track: l.track, slug: l.slug, lessonTitle: l.title, heading: b.text.replace(/`/g, ''), anchor: b.id, text: b.text.toLowerCase() };
+        cur = { track: l.track, slug: l.slug, lessonTitle: plain(l.title), heading: plain(b.text), anchor: b.id, text: b.text.toLowerCase() };
         out.push(cur);
       } else if (cur) {
         cur.text += ' ' + blockText(b).toLowerCase();
@@ -24,7 +25,9 @@ function buildIndex(): Entry[] {
 }
 
 export function SearchPalette({ open, onClose }: { open: boolean; onClose: () => void }) {
-  const index = useMemo(buildIndex, []);
+  const content = useContent();
+  const t = useT().search;
+  const index = useMemo(() => buildIndex(content), [content]);
   const [q, setQ] = useState('');
   const [sel, setSel] = useState(0);
   const input = useRef<HTMLInputElement>(null);
@@ -57,10 +60,10 @@ export function SearchPalette({ open, onClose }: { open: boolean; onClose: () =>
 
   return (
     <div className="palette-backdrop" onMouseDown={onClose}>
-      <div className="palette" role="dialog" aria-label="Search lessons" onMouseDown={(e) => e.stopPropagation()}>
+      <div className="palette" role="dialog" aria-label={t.label} onMouseDown={(e) => e.stopPropagation()}>
         <div className="palette-input">
           <Icon name="search" size={16} />
-          <input ref={input} autoFocus value={q} placeholder="Search: generics, storageState, flaky, satisfies…"
+          <input ref={input} autoFocus value={q} placeholder={t.placeholder}
             onChange={(e) => { setQ(e.target.value); setSel(0); }}
             onKeyDown={(e) => {
               if (e.key === 'Escape') onClose();
@@ -71,11 +74,11 @@ export function SearchPalette({ open, onClose }: { open: boolean; onClose: () =>
           <kbd>esc</kbd>
         </div>
         <div className="palette-results">
-          {results.length === 0 && <div className="palette-empty">No matches for “{q}”.</div>}
+          {results.length === 0 && <div className="palette-empty">{t.none(q)}</div>}
           {results.map((r, i) => (
             <button key={r.track + r.slug + (r.anchor ?? '')} type="button" className={`palette-row ${i === sel ? 'sel' : ''}`}
               onMouseEnter={() => setSel(i)} onClick={() => go(r)}>
-              <span className="palette-track">{getTrack(r.track)?.name}</span>
+              <span className="palette-track">{content.getTrack(r.track)?.name}</span>
               <span className="palette-main">
                 <span className="palette-title">{r.heading ?? r.lessonTitle}</span>
                 {r.heading && <span className="palette-sub">{r.lessonTitle}</span>}

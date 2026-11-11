@@ -1,3 +1,4 @@
+import { useT } from '../lib/i18n';
 import type { QuizQuestion } from '../content/types';
 import { Inline, Markdown } from '../lib/markdown';
 import { progress, useProgress } from '../lib/progress';
@@ -6,6 +7,7 @@ import { Icon } from './Icon';
 
 export function Quiz({ lessonKey, questions }: { lessonKey: string; questions: QuizQuestion[] }) {
   const p = useProgress();
+  const t = useT().quiz;
   const answered = questions.filter((_, i) => p.quiz[`${lessonKey}#${i}`] !== undefined).length;
   const correct = questions.filter((q, i) => p.quiz[`${lessonKey}#${i}`] === q.answer).length;
 
@@ -15,10 +17,10 @@ export function Quiz({ lessonKey, questions }: { lessonKey: string; questions: Q
         <div className="meter" aria-hidden>
           <span style={{ width: `${(answered / questions.length) * 100}%` }} />
         </div>
-        <span>{answered === questions.length ? `${correct} of ${questions.length} correct` : `${answered} of ${questions.length} answered`}</span>
+        <span>{answered === questions.length ? t.correct(correct, questions.length) : t.answered(answered, questions.length)}</span>
         {answered > 0 && (
           <button type="button" className="btn-ghost sm" onClick={() => progress.resetQuiz(lessonKey)}>
-            <Icon name="reset" size={14} /> Retry
+            <Icon name="reset" size={14} /> {t.retry}
           </button>
         )}
       </div>
@@ -62,7 +64,7 @@ export function Quiz({ lessonKey, questions }: { lessonKey: string; questions: Q
             </div>
             {done && (
               <div className={`quiz-explain ${chosen === q.answer ? 'ok' : 'no'}`}>
-                <strong>{chosen === q.answer ? 'Correct.' : 'Not quite.'}</strong> <Markdown src={q.explain} />
+                <strong>{chosen === q.answer ? t.right : t.wrong}</strong> <Markdown src={q.explain} />
               </div>
             )}
           </div>

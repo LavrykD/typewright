@@ -39,6 +39,9 @@ export class CartPage {
 }
 ```
 
+> [!WARNING] Assign locators in the constructor
+> Don't write `readonly items = this.page.getByRole('listitem')` as a field initializer together with `constructor(private page: Page)`. Class fields run before the constructor assigns `page`, so `this.page` is `undefined` — a compile error, and since Playwright 1.65 a runtime error too. Details in the [TypeScript classes lesson](#/typescript/classes#parameter-properties-and-why-theyre-becoming-rare).
+
 Tests now read like the user's intent:
 
 ```ts

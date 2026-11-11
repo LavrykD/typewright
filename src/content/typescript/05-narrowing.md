@@ -234,3 +234,8 @@ Removing the `price` check still compiles without a single error — and now the
 - [Exhaustiveness checking — TypeScript Handbook](https://www.typescriptlang.org/docs/handbook/2/narrowing.html#exhaustiveness-checking)
 - [Assertion functions — TypeScript 3.7 release notes](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-7.html#assertion-functions)
 - [Inferred type predicates — TypeScript 5.5 release notes](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-5-5.html#inferred-type-predicates)
+- [Narrowing — The Concise TypeScript Book (gibbok)](https://gibbok.github.io/typescript-book/book/narrowing/)
+- [Control Flow Analysis — The Concise TypeScript Book](https://gibbok.github.io/typescript-book/book/control-flow-analysis/)
+- [Discriminated Unions — The Concise TypeScript Book](https://gibbok.github.io/typescript-book/book/discriminated-unions/)
+- [Type Guard — TypeScript Deep Dive (Basarat)](https://basarat.gitbook.io/typescript/type-system/typeguard)
+- [Never Type — TypeScript Deep Dive](https://basarat.gitbook.io/typescript/type-system/never)

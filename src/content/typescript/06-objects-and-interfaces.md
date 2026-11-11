@@ -212,3 +212,8 @@ error TS2561: Object literal may only specify known properties, but 'retires' do
 - [Type compatibility (structural typing) — TypeScript Handbook](https://www.typescriptlang.org/docs/handbook/type-compatibility.html)
 - [The satisfies operator — TypeScript 4.9 release notes](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-4-9.html#the-satisfies-operator)
 - [noUncheckedIndexedAccess — TSConfig reference](https://www.typescriptlang.org/tsconfig/#noUncheckedIndexedAccess)
+- [Differences between Type and Interface — The Concise TypeScript Book (gibbok)](https://gibbok.github.io/typescript-book/book/differences-between-type-and-interface/)
+- [Index Signatures — The Concise TypeScript Book](https://gibbok.github.io/typescript-book/book/index-signatures/)
+- [Interfaces — TypeScript Deep Dive (Basarat)](https://basarat.gitbook.io/typescript/type-system/interfaces)
+- [Freshness (excess property checks) — TypeScript Deep Dive](https://basarat.gitbook.io/typescript/type-system/freshness)
+- [Index Signatures — TypeScript Deep Dive](https://basarat.gitbook.io/typescript/type-system/index-signatures)

@@ -26,6 +26,7 @@ That single fact explains a lot:
 - Types can't change runtime behaviour. `name: string` doesn't *convert* or *validate* anything.
 - You can't ask "is this a `User`?" at runtime with a type — `User` doesn't exist any more. You check *values* (`typeof`, `in`, `instanceof`) instead. That's what the [narrowing lesson](#/typescript/narrowing) is about.
 - Data from the outside world (`JSON.parse`, `fetch`, `process.env`) is whatever it is. A type annotation on it is a *promise you're making*, not a check.
+- All of JavaScript's runtime quirks are still there — see [JavaScript essentials TypeScript assumes](#/typescript/javascript-essentials).
 
 > [!PITFALL] "But I typed it as `User`!"
 > Annotating untrusted data doesn't validate it. `const user: User = await res.json()` compiles because `res.json()` returns `any` — the compiler simply trusts you. If the API sends `{ name: null }`, your code crashes at runtime with no compile error. Treat external data as `unknown` and check it (by hand or with a schema library) before you trust its shape.
@@ -43,6 +44,9 @@ This is why your tests can *run* while your editor shows red squiggles: the runn
 
 > [!NOTE] TypeScript 7 is the native compiler
 > TypeScript 7.0 (July 2026) is a port of the compiler to native code — typically around 10× faster on full builds. The *language* is the same; `npm install -D typescript` now installs the native `tsc`. TypeScript 6.0 was the bridge release that changed defaults and deprecated old options to prepare for it.
+
+> [!PITFALL] Tools that still need TypeScript 6
+> The TypeScript 7 npm package ships the `tsc` command but **no JavaScript API** — `import ts from 'typescript'` gives you nothing to call. Tools built on that API — most notably **typescript-eslint** (its type-aware rules), but also ts-morph and older ts-node setups — still require TypeScript 6. Installing them next to TypeScript 7 fails with `npm error ERESOLVE … peer typescript@">=4.8.4 <6.1.0"`. Until your tools support 7, pin the project to 6: `npm install -D typescript@6`. The language you write is the same.
 
 ## Running TypeScript directly in Node
 
@@ -209,3 +213,6 @@ With `unknown`, `tsc` refuses `user.name` until you've proven `user` is an objec
 - [Modules: TypeScript — Node.js documentation](https://nodejs.org/api/typescript.html)
 - [TSConfig reference: strict](https://www.typescriptlang.org/tsconfig/#strict)
 - [Best practices: lint your tests — Playwright](https://playwright.dev/docs/best-practices#lint-your-tests)
+- [TypeScript Introduction — The Concise TypeScript Book (gibbok)](https://gibbok.github.io/typescript-book/book/typescript-introduction/)
+- [Why TypeScript — TypeScript Deep Dive (Basarat)](https://basarat.gitbook.io/typescript/getting-started/why-typescript)
+- [TypeScript's Type System — TypeScript Deep Dive](https://basarat.gitbook.io/typescript/type-system)

@@ -231,3 +231,8 @@ Forgetting one key, or misspelling it as `APIURL`, is a compile error.
 - [Mapped Types — TypeScript Handbook](https://www.typescriptlang.org/docs/handbook/2/mapped-types.html)
 - [Template Literal Types — TypeScript Handbook](https://www.typescriptlang.org/docs/handbook/2/template-literal-types.html)
 - [Typeof Type Operator — TypeScript Handbook](https://www.typescriptlang.org/docs/handbook/2/typeof-types.html)
+- [Mapped Types — The Concise TypeScript Book (gibbok)](https://gibbok.github.io/typescript-book/book/mapped-types/)
+- [Conditional Types — The Concise TypeScript Book](https://gibbok.github.io/typescript-book/book/conditional-types/)
+- [infer — The Concise TypeScript Book](https://gibbok.github.io/typescript-book/book/infer-type-inference-in-conditional-types/)
+- [Template Union Types — The Concise TypeScript Book](https://gibbok.github.io/typescript-book/book/template-union-types/)
+- [Moving Types — TypeScript Deep Dive (Basarat)](https://basarat.gitbook.io/typescript/type-system/moving-types)
